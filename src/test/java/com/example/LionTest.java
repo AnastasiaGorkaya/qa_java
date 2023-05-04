@@ -16,10 +16,12 @@ public class LionTest {
     @Mock
     Feline feline;
 
-    @Test(expected = Exception.class)
-    public void checkLionSexUndefinedThrowsExceptionSuccess() throws Exception {
-        new Lion(feline, "Средний род");
+    @Test
+    public void checkLionSexUndefinedThrowsExceptionSuccess() {
+        Exception exception = assertThrows(Exception.class, () -> new Lion(feline, "Средний род"));
+        assertEquals("Используйте допустимые значения пола животного - самец или самка", exception.getMessage());
     }
+
     @Test
     public void checkLionGetKittensSuccess() throws Exception {
         Lion lion = new Lion(feline, lionSex);

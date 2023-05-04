@@ -16,21 +16,17 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FelineTest {
-    @Mock
-    Animal animal;
 
-    Feline feline = new Feline(animal);
+    private Feline feline;
 
-    @Spy
-    Feline felineSpy = new Feline(animal);
+    @Before
+    public void initFeline() {
+        feline = new Feline();
+    }
 
     @Test
     public void felineEatMeatSuccess() throws Exception {
-        Feline feline = new Feline(animal);
-
         List<String> expectedResult = List.of("Животные", "Птицы", "Рыба");
-
-        Mockito.when(animal.getFood("Хищник")).thenReturn(expectedResult);
 
         List<String> actualResult = feline.eatMeat();
 
@@ -49,9 +45,7 @@ public class FelineTest {
     public void felineGetKittensNoParamsSuccess() {
         int expectedResult = 1;
 
-        Mockito.when(felineSpy.getKittens(1)).thenReturn(expectedResult);
-
-        int actualResult = felineSpy.getKittens();
+        int actualResult = feline.getKittens();
 
         assertEquals(expectedResult, actualResult);
     }
